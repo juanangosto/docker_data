@@ -11,7 +11,18 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./mysql-volume:/var/lib/mysql
+      - mysql_volume:/var/lib/mysql
+
+  mssql:
+    image: microsoft/mssql-server-linux
+    container_name: mssql
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: sa_Password
+      ACCEPT_EULA: Y
+    volumes:
+      - mssql_volume:/var/opt/mssql/data
 
   anaconda:
     build:
@@ -22,3 +33,7 @@ services:
       - 8888:8888
     volumes:
       - ../jupyter_notebooks:/notebooks/
+
+volumes:
+  mysql_volume:
+  mssql_volume:
